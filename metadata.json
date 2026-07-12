@@ -1,0 +1,6 @@
+{
+  "name": "Creo",
+  "description": "Creo is an AI-powered content creator that transforms topics and ideas into professional, ready-to-use marketing material using Gemini, complete with a beautiful, modern interface, history tracking, and smooth transitions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
