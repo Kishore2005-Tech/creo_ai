@@ -182,7 +182,7 @@ export default function GeneratorView({ user }: GeneratorViewProps) {
       <div className="flex flex-col gap-1">
         <h1 className="text-3xl font-display font-extrabold tracking-tight text-slate-800 dark:text-white flex items-center gap-2">
           <Sparkles className="text-creo-gold" />
-          creo.ai Studio
+          Creo.ai Studio
         </h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 font-sans">
           Compose highly engaging material tailored exactly to your brand voice.
