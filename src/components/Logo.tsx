@@ -25,8 +25,9 @@ export default function Logo({ showText = true, size = "md" }: LogoProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-creo-gold/5 via-transparent to-transparent opacity-50" />
       </motion.div>
       {showText && (
-        <span className={`${textClass} font-display font-extrabold tracking-tight text-slate-800 dark:text-white transition-colors duration-200`}>
-          Creo
+        <span className={`${textClass} font-display font-extrabold tracking-tight text-slate-800 dark:text-white transition-colors duration-200 flex items-baseline gap-1`}>
+          <span>Creo<span className="text-creo-gold">.ai</span></span>
+          <span className="font-sans text-slate-400 dark:text-slate-500 font-medium text-xs tracking-normal uppercase">Studio</span>
         </span>
       )}
     </div>

@@ -17,6 +17,7 @@ type ViewTab = "generator" | "history" | "settings";
 function AppContent() {
   const { user, loading: authLoading, signOut } = useAppAuth();
   const [activeTab, setActiveTab] = useState<ViewTab>("generator");
+  const [viewingWorkspace, setViewingWorkspace] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
@@ -37,9 +38,17 @@ function AppContent() {
     }
   }, [darkMode]);
 
+  // When user is logged out, always reset viewingWorkspace to false
+  useEffect(() => {
+    if (!user) {
+      setViewingWorkspace(false);
+    }
+  }, [user]);
+
   const handleSignOut = () => {
     signOut().catch((err) => console.error("Logout failed:", err));
     setUserMenuOpen(false);
+    setViewingWorkspace(false);
   };
 
   if (authLoading) {
@@ -53,19 +62,24 @@ function AppContent() {
             <div className="absolute inset-0 rounded-2xl border-2 border-creo-gold border-t-transparent animate-spin" />
           </div>
           <span className="text-xs font-mono tracking-widest text-slate-400 dark:text-slate-500 uppercase animate-pulse">
-            Booting Creo Studio...
+            Booting Creo.ai Studio...
           </span>
         </div>
       </div>
     );
   }
 
-  // Redirect signed-out users to public landing page
-  if (!user) {
+  // Redirect signed-out users OR those who haven't explicitly entered workspace to public landing page
+  if (!viewingWorkspace || !user) {
     return (
       <LandingPage 
         darkMode={darkMode} 
         onToggleTheme={() => setDarkMode(!darkMode)} 
+        user={user}
+        onEnterWorkspace={(tab) => {
+          setActiveTab(tab);
+          setViewingWorkspace(true);
+        }}
       />
     );
   }
@@ -128,7 +142,7 @@ function AppContent() {
         {/* Footer info or quick help */}
         <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 text-center">
           <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-            Creo Engine v1.0
+            Creo.ai Studio Engine v1.0
           </div>
         </div>
       </aside>
@@ -277,7 +291,7 @@ function AppContent() {
                         className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-500 hover:bg-red-500/10 rounded-lg transition-colors text-left cursor-pointer"
                       >
                         <LogOut size={14} />
-                        <span>Log Out of Creo</span>
+                        <span>Log Out of creo.ai</span>
                       </button>
                     </motion.div>
                   </>

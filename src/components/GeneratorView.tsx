@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Sparkles, Copy, Check, FileText, RefreshCw, Save, Download, 
@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { ContentType, Tone, Length, AppUser } from "../types";
 import { saveHistoryToStore } from "../lib/historyStore";
+import { generateLocalContent } from "../lib/contentDatabase";
 
 interface GeneratorViewProps {
   user: AppUser;
@@ -66,15 +67,31 @@ export default function GeneratorView({ user }: GeneratorViewProps) {
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [error, setError] = useState("");
 
+  const streamIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Clean up streaming interval on unmount
+  useEffect(() => {
+    return () => {
+      if (streamIntervalRef.current) {
+        clearInterval(streamIntervalRef.current);
+      }
+    };
+  }, []);
+
   // Live Stats
   const wordCount = outputText ? outputText.trim().split(/\s+/).length : 0;
   const charCount = outputText ? outputText.length : 0;
 
-  const handleGenerate = async (e?: React.FormEvent) => {
+  const handleGenerate = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!topic.trim()) {
       setError("Please describe your topic or idea.");
       return;
+    }
+
+    // Cancel any ongoing streams
+    if (streamIntervalRef.current) {
+      clearInterval(streamIntervalRef.current);
     }
 
     setError("");
@@ -83,61 +100,38 @@ export default function GeneratorView({ user }: GeneratorViewProps) {
     setOutputText("");
 
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contentType, topic, tone, length })
-      });
+      const topicClean = topic.trim().toLowerCase();
+      const storageKey = `creo-gen-index-${user.id}-${topicClean}-${contentType}-${tone}-${length}`;
+      const savedIndex = localStorage.getItem(storageKey);
+      const iterationIndex = savedIndex ? parseInt(savedIndex, 10) : 0;
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || `HTTP ${response.status}: Failed to generate.`);
-      }
+      // Update index for next time (non-linear looping through 10 distinct outputs)
+      const nextIndex = (iterationIndex + 1) % 10;
+      localStorage.setItem(storageKey, nextIndex.toString());
 
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("Could not start streaming reader from response.");
-
-      const decoder = new TextDecoder();
-      let done = false;
+      const fullText = generateLocalContent(topic.trim(), contentType, tone, length, iterationIndex);
+      const words = fullText.split(" ");
+      let currentWordIndex = 0;
       let accumulated = "";
-      let buffer = "";
 
-      while (!done) {
-        const { value, done: doneReading } = await reader.read();
-        done = doneReading;
-        buffer += decoder.decode(value, { stream: !doneReading });
+      // Determine a dynamic, ultra-smooth speed based on total content length
+      const speed = words.length > 400 ? 8 : words.length > 150 ? 12 : 18;
 
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || ""; // hold on to the last incomplete line
-
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (!trimmed) continue;
-          if (trimmed.startsWith("data: ")) {
-            const dataContent = trimmed.slice(6).trim();
-            if (dataContent === "[DONE]") {
-              done = true;
-              break;
-            }
-            try {
-              const parsed = JSON.parse(dataContent);
-              if (parsed.error) {
-                throw new Error(parsed.error);
-              }
-              if (parsed.text) {
-                accumulated += parsed.text;
-                setOutputText(accumulated);
-              }
-            } catch (err) {
-              // Ignore JSON parse errors for incomplete buffers
-            }
+      streamIntervalRef.current = setInterval(() => {
+        if (currentWordIndex < words.length) {
+          accumulated += (currentWordIndex === 0 ? "" : " ") + words[currentWordIndex];
+          setOutputText(accumulated);
+          currentWordIndex++;
+        } else {
+          if (streamIntervalRef.current) {
+            clearInterval(streamIntervalRef.current);
           }
+          setLoading(false);
         }
-      }
+      }, speed);
     } catch (err: any) {
       console.error("Generator error:", err);
-      setError(err.message || "Something went wrong while generating content. Please try again.");
-    } finally {
+      setError("Something went wrong while generating content. Please try again.");
       setLoading(false);
     }
   };
@@ -188,7 +182,7 @@ export default function GeneratorView({ user }: GeneratorViewProps) {
       <div className="flex flex-col gap-1">
         <h1 className="text-3xl font-display font-extrabold tracking-tight text-slate-800 dark:text-white flex items-center gap-2">
           <Sparkles className="text-creo-gold" />
-          Creo Studio
+          creo.ai Studio
         </h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 font-sans">
           Compose highly engaging material tailored exactly to your brand voice.
