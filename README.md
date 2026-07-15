@@ -1,4 +1,4 @@
-# Creo.ai Studio
+# Creo.ai Studio✍🏻
 
 Creo.ai Studio is a full-stack AI-powered content creation platform that lets users generate, edit, and manage AI-generated content through a fast, modern web interface. Built with a security-first architecture, all AI API calls are handled server-side to keep credentials safe.
 
