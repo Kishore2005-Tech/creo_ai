@@ -100,4 +100,4 @@ This project is licensed under the MIT License.
 ## Author
 
 **Kishore**
-Full-Stack Developer | Founder, VenturoAI
+Full-Stack Developer | AI Engineer 
