@@ -99,9 +99,9 @@ This project is licensed under the MIT License.
 
 ---
 
+<div align="center">
+
 ## 👤 Author
+ Kishore P | Full Stack Developer | [GitHub](https://github.com/Kishore2005-Tech)
 
-**Kishore**
-Full-Stack Developer | [GitHub](https://github.com/Kishore2005-Tech)
-
----
+</div>
