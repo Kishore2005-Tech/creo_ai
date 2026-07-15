@@ -100,4 +100,4 @@ This project is licensed under the MIT License.
 ## Author
 
 **Kishore**
-Full-Stack Developer | AI Engineer 
+Full-Stack Developer | GitHub [https://github.com/Kishore2005-Tech]
