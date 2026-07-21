@@ -21,7 +21,7 @@ Creo.ai Studio is a full-stack AI-powered content creation platform that lets us
 - Node.js
 - Express
 
-**AI & Auth
+**AI & Auth**
 - Google Gemini API
 - Clerk (Authentication)
 
