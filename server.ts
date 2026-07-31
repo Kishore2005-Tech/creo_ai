@@ -15,9 +15,7 @@ async function startServer() {
   // API Route for text generation stream
  
 
-    if (!topic) {
-      return res.status(400).json({ error: "Topic is required" });
-    }
+    
 
     // Prepare system instructions and prompt based on types
     const systemInstruction = `You are Creo, a professional AI Content Creator. You write polished, ready-to-use copy that matches the requested Content Type, Tone, and Length.
