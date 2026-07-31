@@ -13,7 +13,8 @@ async function startServer() {
   app.use(express.json());
 
   // API Route for text generation stream
- 
+  app.post("/api/generate", async (req, res) => {
+    const { contentType, topic, tone, length } = req.body;
 
     
 
