@@ -13,8 +13,7 @@ async function startServer() {
   app.use(express.json());
 
   // API Route for text generation stream
-  app.post("/api/generate", async (req, res) => {
-    const { contentType, topic, tone, length } = req.body;
+ 
 
     if (!topic) {
       return res.status(400).json({ error: "Topic is required" });
