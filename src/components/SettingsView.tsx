@@ -1,7 +1,7 @@
 import React from "react";
 import { User as UserIcon, Mail, Shield, Info, LogOut } from "lucide-react";
 import { AppUser } from "../types";
-
+import { useAppAuth } from "../context/AuthContext";
 import { motion } from "motion/react";
 
 interface SettingsViewProps {
