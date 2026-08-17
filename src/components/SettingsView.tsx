@@ -23,7 +23,7 @@ export default function SettingsView({ user }: SettingsViewProps) {
           Settings
         </h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 font-sans">
-          Manage your account profile and check configuration statistics.
+         
         </p>
       </div>
 
