@@ -1,7 +1,7 @@
 
 
 
-import { useAppAuth } from "../context/AuthContext";
+
 import { motion } from "motion/react";
 
 interface SettingsViewProps {
