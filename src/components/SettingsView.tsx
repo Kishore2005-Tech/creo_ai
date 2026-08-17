@@ -1,6 +1,6 @@
 
 
-import { AppUser } from "../types";
+
 import { useAppAuth } from "../context/AuthContext";
 import { motion } from "motion/react";
 
