@@ -8,7 +8,7 @@ interface LogoProps {
 
 export default function Logo({ showText = true, size = "md" }: LogoProps) {
   
-  const textClass = size === "sm" ? "text-lg" : size === "lg" ? "text-3xl" : "text-xl";
+  
 
   return (
     <div className="flex items-center gap-3 select-none">
