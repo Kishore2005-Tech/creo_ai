@@ -1,5 +1,5 @@
 
-import { motion } from "motion/react";
+
 
 interface LogoProps {
   showText?: boolean;
