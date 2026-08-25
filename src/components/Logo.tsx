@@ -14,7 +14,7 @@ export default function Logo({ showText = true, size = "md" }: LogoProps) {
     <div className="flex items-center gap-3 select-none">
       <motion.div
         whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(212, 175, 55, 0.4)" }}
-        
+        transition={{ type: "spring", stiffness: 400, damping: 15 }}
         className={`${badgeSize} flex items-center justify-center rounded-xl bg-creo-black border border-creo-gold/30 text-creo-gold font-bold font-display cursor-pointer relative overflow-hidden`}
         style={{
           boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
