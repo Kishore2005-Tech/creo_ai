@@ -7,7 +7,7 @@ interface LogoProps {
 }
 
 export default function Logo({ showText = true, size = "md" }: LogoProps) {
-  
+  const badgeSize = size === "sm" ? "h-7 w-7 text-sm" : size === "lg" ? "h-14 w-14 text-2xl" : "h-10 w-10 text-lg";
   const textClass = size === "sm" ? "text-lg" : size === "lg" ? "text-3xl" : "text-xl";
 
   return (
