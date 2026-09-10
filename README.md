@@ -17,7 +17,7 @@ Frontend
 - TypeScript
 - Vite
 
-**Backend**
+Backend
 - Node.js
 - Express
 
