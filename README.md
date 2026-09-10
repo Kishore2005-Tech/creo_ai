@@ -83,7 +83,7 @@ creo_ai/
 └── .env            # Environment variables (not committed)
 ```
 
-Security
+## Security
 
 - API keys are never exposed to the client
 - All AI requests are proxied through the backend
