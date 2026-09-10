@@ -21,7 +21,7 @@ Backend
 - Node.js
 - Express
 
-**AI & Auth**
+AI & Auth
 - Google Gemini API
 - Clerk (Authentication)
 
