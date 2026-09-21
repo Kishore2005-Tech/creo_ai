@@ -23,7 +23,7 @@ export interface AppUser {
   id: string;
   email: string | null;
   name: string | null;
-  avatarUrl: string | null;
+  
 }
 
 export interface ContentHistoryEntry {
