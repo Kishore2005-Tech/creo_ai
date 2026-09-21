@@ -20,7 +20,7 @@ export type Length =
   | "Long";
 
 export interface AppUser {
- 
+  id: string;
   email: string | null;
   name: string | null;
   
