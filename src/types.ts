@@ -32,5 +32,5 @@ export interface ContentHistoryEntry {
   contentType: ContentType;
   topic: string;
   outputText: string;
-  // ISO date string
+  createdAt: string;// ISO date string
 }
