@@ -17,7 +17,7 @@ Creo.ai Studio is a full-stack AI-powered content creation platform that lets us
 - TypeScript
 - Vite
 
-**Backend**
+**Backend
 - Node.js
 - Express
 
