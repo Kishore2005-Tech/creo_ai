@@ -93,7 +93,7 @@ creo_ai/
 
 Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/Kishore2005-Tech/creo_ai/issues).
 
-## License
+License
 
 This project is licensed under the MIT License.
 
