@@ -65,7 +65,7 @@ CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
 ```
 
-### Running Locally
+## Running Locally
 
 ```bash
 npm run dev
